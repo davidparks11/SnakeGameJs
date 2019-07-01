@@ -91,7 +91,7 @@
             }
 
             //Game Objects
-            var canvas, ctx, keystate;
+            var canvas, ctx, keystate, score, topScore;
             //Game Loop Objects
             var now, dt = 0, last = timestamp(), step = 1/20;
 
@@ -102,7 +102,6 @@
                 ctx = canvas.getContext('2d');
                 document.body.appendChild(canvas);
                  
-                frames = 0;
                 keystate = {}; 
                 document.addEventListener('keydown', function(evt) {
                     keystate[evt.keyCode] = true;
@@ -111,6 +110,7 @@
                     delete keystate[evt.keyCode];
                 });
 
+                topScore = 0;
                 init();
                 loop();
             }
@@ -122,6 +122,7 @@
                 snake.init(UP, sp.x, sp.y);
                 grid.set(SNAKE, sp.x, sp.y);
 
+                score = 0;
                 setFood();
             }
 
@@ -176,6 +177,9 @@
 
                 if (grid.get(nx, ny) === FRUIT) {
                     var tail = {x:nx, y:ny};
+                    score++;
+                    if (score > topScore)
+                        topScore = score;
                     setFood();
                 } else {
                     var tail = snake.remove();
@@ -208,6 +212,10 @@
                         ctx.fillRect(x*tw, y*th, tw, th);
                     }
                 }
+                ctx.fillStyle = '#000';
+                ctx.fillText('SCORE: ' + score, 10, canvas.height - 10);
+                ctx.fillText('TOP SCORE: ' + topScore, 10, canvas.height - 20);
+
             }
 
             function timestamp() {
