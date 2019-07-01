@@ -91,7 +91,9 @@
             }
 
             //Game Objects
-            var canvas, ctx, keystate, frames;
+            var canvas, ctx, keystate;
+            //Game Loop Objects
+            var now, dt = 0, last = timestamp(), step = 1/20;
 
             function main() {
                 canvas = document.createElement('canvas');
@@ -124,7 +126,12 @@
             }
 
             function loop() {
-                update();
+                now = timestamp();
+                dt = dt + Math.min(1, (now - last) / 1000);
+                while (dt > step) {
+                    dt = dt - step;
+                    update()
+                }
                 draw();
 
                 window.requestAnimationFrame(loop, canvas);
@@ -195,6 +202,10 @@
                         ctx.fillRect(x*tw, y*th, tw, th);
                     }
                 }
+            }
+
+            function timestamp() {
+                return window.performance && window.performance.now ? window.performance.now() : new Date().getTime();
             }
 
             main();
