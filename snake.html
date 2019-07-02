@@ -234,13 +234,18 @@
                                 ctx.fillStyle = '#f00';
                                 break;
                         }
-                        ctx.fillRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+                        ctx.fillRect(
+                            x * tileWidth,
+                            y * tileHeight,
+                            tileWidth,
+                            tileHeight
+                        );
                     }
                 }
 
                 showScore();
-                
-                if(gameOver) {
+
+                if (gameOver) {
                     messageContinue();
                     messageGameOver();
                 }
@@ -290,7 +295,8 @@
                 ctx.fillText(
                     'Press "space bar" to continue',
                     Math.floor((canvas.width + 1) / 2),
-                    canvas.height - 10);
+                    canvas.height - 10
+                );
             }
 
             main();
