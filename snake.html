@@ -121,7 +121,6 @@
                 keystate = {};
                 document.addEventListener('keydown', function(evt) {
                     keystate[evt.keyCode] = true;
-                    console.log(evt.keyCode);
                 });
                 document.addEventListener('keyup', function(evt) {
                     delete keystate[evt.keyCode];
